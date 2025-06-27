@@ -8,7 +8,7 @@ export function Login() {
 
   return (
     <div>
-      <h1>Connexion</h1>
+      <h1>Connexions</h1>
       <Form method="post">
         <input type="email" name="email" placeholder="Email" required />
         <input type="password" name="password" placeholder="Mot de passe" required />

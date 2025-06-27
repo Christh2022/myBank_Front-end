@@ -10,37 +10,36 @@ import { loginAction } from '../Pages/Login/LoginAction';
 import { Login } from '../Pages/Login/Login';
 import { registerAction } from '../Pages/Register/RegisterAction';
 import { Register } from '../Pages/Register/Register';
+import AppLayout from '../Layout/AppLayout';
 
 const router = createBrowserRouter([
     {
-        path: '/',
-        element: <Navigate to="/home" replace />,
-    },
-    {
-        path: '/',
-        loader: requireAuth,
-        errorElement: <ErrorBoundary />,
-        children: [
+      path: '/',
+      element: <AppLayout />,
+      loader: requireAuth,
+      errorElement: <ErrorBoundary />,
+      children: [
+        { index: true, element: <Home /> }, // ✅ route par défaut : / → Home
         { path: 'home', element: <Home /> },
         { path: 'comptes', element: <Category /> },
         { path: 'transactions', element: <Expenses /> },
-        ],
+      ],
     },
     {
-        path: '/Login',
-        element: <Login />,
-        action: loginAction,
-    },
-
-    {
-        path: '/register',
-        element: <Register />,
-        action: registerAction,
+      path: '/login',
+      element: <Login />,
+      action: loginAction,
     },
     {
-        path: '*',
-        element: <NotFound />,
+      path: '/register',
+      element: <Register />,
+      action: registerAction,
     },
-]);
+    {
+      path: '*',
+      element: <NotFound />,
+    },
+  ]);
+  
 
 export default router;
