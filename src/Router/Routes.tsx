@@ -11,33 +11,37 @@ import { Login } from '../Pages/Login/Login';
 import { registerAction } from '../Pages/Register/RegisterAction';
 import { Register } from '../Pages/Register/Register';
 import AppLayout from '../Layout/AppLayout';
+import Profile from '../Pages/Profile';
 
 const router = createBrowserRouter([
     {
-      path: '/',
-      element: <AppLayout />,
-      loader: requireAuth,
-      errorElement: <ErrorBoundary />,
-      children: [
-        { index: true, element: <Home /> }, // ✅ route par défaut : / → Home
-        { path: 'home', element: <Home /> },
-        { path: 'comptes', element: <Category /> },
-        { path: 'transactions', element: <Expenses /> },
-      ],
+        path: '/',
+        element: <AppLayout />,
+        loader: requireAuth,
+        errorElement: <ErrorBoundary />,
+        children: [
+            { index: true, element: <Home /> }, // ✅ route par défaut : / → Home
+            { path: 'home', element: <Home /> },
+            { path: 'category', element: <Category /> },
+            { path: 'transactions', element: <Expenses /> },
+            { path: 'transactions/:category', element: <Expenses /> },
+            { path: 'profile', element: <Profile /> }
+            
+        ],
     },
     {
-      path: '/login',
-      element: <Login />,
-      action: loginAction,
+        path: '/login',
+        element: <Login />,
+        action: loginAction,
     },
     {
-      path: '/register',
-      element: <Register />,
-      action: registerAction,
+        path: '/register',
+        element: <Register />,
+        action: registerAction,
     },
     {
-      path: '*',
-      element: <NotFound />,
+        path: '*',
+        element: <NotFound />,
     },
   ]);
   
