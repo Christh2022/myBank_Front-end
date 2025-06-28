@@ -8,7 +8,7 @@ function LoaderBoundary() {
   return (
       <div style={{ padding: '2rem', textAlign: 'center' }}>
           <div className="spinner" />
-          <p>Vérification du token...</p>
+          <p>Chargement...</p>
       </div>
   );
 }
@@ -39,10 +39,10 @@ function App() {
 
 
   return (
-    <div>
+    <>
       {loading && <LoaderBoundary />}
       <RouterProvider router={router} />
-    </div>
+    </>
   )
 }
 

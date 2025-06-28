@@ -1,5 +1,5 @@
 // src/router.tsx
-import { createBrowserRouter, Navigate } from 'react-router';
+import { createBrowserRouter} from 'react-router';
 import { ErrorBoundary } from '../utils/ErrorBoundary';
 import Home from '../Pages/Home';
 import Category from '../Pages/Category';
