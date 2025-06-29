@@ -44,7 +44,7 @@ export async function RegisterUser(
     let data;
     try {
       data = await response.json();
-    } catch (e) {
+    } catch{
       throw new Error('Invalid JSON in response');
     }
   

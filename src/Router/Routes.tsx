@@ -26,7 +26,6 @@ const router = createBrowserRouter([
             { path: 'transactions', element: <Expenses /> },
             { path: 'transactions/:category', element: <Expenses /> },
             { path: 'profile', element: <Profile /> }
-            
         ],
     },
     {

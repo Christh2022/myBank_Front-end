@@ -17,6 +17,7 @@ export async function requireAuth(): Promise<string> {
 
     // If the response is not ok, throw an error
     if (!response.ok) {
+        localStorage.removeItem('token');
         throw new Response("Unauthorized access: Invalid token", {status: 401});
     }
 

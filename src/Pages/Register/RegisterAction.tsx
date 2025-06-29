@@ -9,6 +9,7 @@ export async function registerAction({ request }: ActionFunctionArgs) {
   const address = formData.get('address'); // <-- Correction ici
   const phone = formData.get('phone');
   const password = formData.get('password');
+  const confirmPassword = formData.get('confirmPassword')
 
   // Vérification des types
   if (
@@ -19,8 +20,15 @@ export async function registerAction({ request }: ActionFunctionArgs) {
     typeof address !== 'string' ||
     typeof phone !== 'string'
   ) {
-    return { message: 'Tous les champs sont requis.' };
+    return { message: 'All fields are required.' };
   }
+  
+  
+  if (confirmPassword !== password) {
+    return { message: 'Passwords do not match.' };
+  }
+
+  
 
   try {
     await RegisterUser(email, password, lastname, surname, address, phone);
