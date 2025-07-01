@@ -1,5 +1,5 @@
 // src/pages/Register.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Form, useActionData,  } from 'react-router';
 import { AuthInfo } from '../../Components/Authentification/AuthInfo';
 import { StepperRegister } from '../../Components/Authentification/StepperRegister';

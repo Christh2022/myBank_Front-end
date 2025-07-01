@@ -4,6 +4,8 @@ import { requireAuth } from "./utils/Auth";
 import { useEffect, useState } from "react";
 import "./App.css";
 import Nav from "./Components/Navigation/Nav";
+import { useDispatch, useSelector } from "react-redux";
+import { setNavVisible, visible } from "./Redux/Slices/navSlice";
 
 export function LoaderBoundary() {
   return (
@@ -16,11 +18,13 @@ export function LoaderBoundary() {
 
 function App() {
   const [loading, setLoading] = useState(false);
-  const [token, setToken] = useState<string | null>("")
+  const navVisible = useSelector(visible)
+  const dispatch = useDispatch();
+
   
   useEffect(() => {
-    const path = window.location.pathname;
-    setToken(localStorage.getItem('token'))
+    const path = (window.location.pathname);
+    const token = (localStorage.getItem('token'))
     
     if (!token &&  path === '/Login' || path === '/register' ) {
       setLoading(false);
@@ -28,20 +32,21 @@ function App() {
       // Vérifier le token à chaque chargement de l'application
       setLoading(true);
       requireAuth()
-        .catch(() => {})
-        .finally(() => setLoading(false));
+        .then(()=>dispatch(setNavVisible(true)))
+      .catch(() => {})
+      .finally(() => setLoading(false));
     }
-  }, []);
+  }, [navVisible, dispatch]);
   
-  const location = window.location.pathname;
+
 
 
   return (
     <>
-      {loading && <LoaderBoundary />}
+      {loading && !navVisible &&  <LoaderBoundary />}
       <RouterProvider router={router} />
       {
-        location === 'Login' || location === 'register' || !token &&
+        navVisible &&
         <>
           <Nav/>
         </>

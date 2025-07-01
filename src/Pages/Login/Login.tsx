@@ -8,29 +8,43 @@ import { AuthInfo } from "../../Components/Authentification/AuthInfo";
 import { useEffect, useState } from "react";
 import { LoaderBoundary } from "../../App";
 import { requireAuth } from "../../utils/Auth";
+import { useDispatch, useSelector } from "react-redux";
+import { setNavVisible, visible } from "../../Redux/Slices/navSlice";
 
 export function Login() {
   const error = useActionData();
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch()
+  const navVisible = useSelector(visible)
+  
 
   useEffect(() => {
     setLoading(true);
-    console.log(loading)
+    const path = (window.location.pathname);
     
     requireAuth()
       .then((res) => {
+        dispatch(setNavVisible(true))
         console.log(res);
+        
       })
       .catch(() => {
         localStorage.removeItem('token');
       })
-      .finally(() => setLoading(false));
-  }, [navigation.state])
+      .finally(() => {
+        if (!navVisible) { 
+          setLoading(false)
+        }
+        if (navVisible && path !== '/Login') {
+          setLoading(false)
+        }
+      });
+  }, [navigation.state, dispatch, navVisible])
 
   return (
     <div className="w-full flex flex-col justify-center items-center">
-      {loading && <LoaderBoundary />}
+      {loading &&  <LoaderBoundary />}
       <div className="authentication">
         <div className="flex flex-row w-[100%] items-center justify-center overflow-hidden ">
           {/* Left Side - Auth Info */}
@@ -61,7 +75,7 @@ export function Login() {
                         type="email"
                         name="email"
                         placeholder="Enter your Email"
-                        className="border h-[54px] text-[18px] font-medium rounded outline-0 border-[#FFFFFF80] border-1 focus:border-[#FCA311] focus:outline-[#FCA311] focus:outline-2 focus:invalid:border-[#EC0B43] focus:invalid:outline-[#EC0B43] rounded-[30px] pl-13 pr-7 peer invalid:border-[#EC0B43] peer-invalid:outline-[#EC0B43] peer"
+                        className=" h-[54px] text-[18px] font-medium outline-0 border-[#FFFFFF80] border-1 focus:border-[#FCA311] focus:outline-[#FCA311] focus:outline-2 focus:invalid:border-[#EC0B43] focus:invalid:outline-[#EC0B43] rounded-[30px] pl-13 pr-7 peer invalid:border-[#EC0B43] peer-invalid:outline-[#EC0B43] peer"
                       />
                       <div className="absolute bottom-[18px] left-5 text-[#FFFFFF80] peer-focus:text-[#FCA311] peer-invalid:text-[#EC0B43]">
                         <IoMdMail size={20} />
@@ -75,7 +89,7 @@ export function Login() {
                         type="password"
                         name="password"
                         placeholder="Enter your Password"
-                        className="border h-[54px] rounded outline-0 border-[#FFFFFF80] border-1 focus:border-[#FCA311] focus:outline-[#FCA311] focus:outline-2 focus:invalid:border-[#EC0B43] focus:invalid:outline-[#EC0B43] rounded-[30px] pl-13 pr-7 peer"
+                        className=" h-[54px] outline-0 border-[#FFFFFF80] border-1 focus:border-[#FCA311] focus:outline-[#FCA311] focus:outline-2 focus:invalid:border-[#EC0B43] focus:invalid:outline-[#EC0B43] rounded-[30px] pl-13 pr-7 peer"
                       />
                       <div className="absolute bottom-[18px] left-5 text-[#FFFFFF80] peer-focus:text-[#FCA311] peer-invalid:text-[#EC0B43]">
                         <MdOutlineLock size={24} />

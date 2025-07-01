@@ -1,17 +1,17 @@
 // src/router.tsx
 import { createBrowserRouter} from 'react-router';
 import { ErrorBoundary } from '../utils/ErrorBoundary';
-import Home from '../Pages/Home';
-import Category from '../Pages/Category';
-import Expenses from '../Pages/Expenses';
-import NotFound from '../Pages/NotFound';
+import Home from '../Pages/Home/Home';
+import Category from '../Pages/Category/Category';
+import Expenses from '../Pages/Expenses/Expenses';
+import NotFound from '../Pages/NotFound/NotFound';
 import { requireAuth } from '../utils/Auth';
 import { loginAction } from '../Pages/Login/LoginAction';
 import { Login } from '../Pages/Login/Login';
 import { registerAction } from '../Pages/Register/RegisterAction';
 import { Register } from '../Pages/Register/Register';
 import AppLayout from '../Layout/AppLayout';
-import Profile from '../Pages/Profile';
+import Profile from '../Pages/Profile/Profile';
 
 const router = createBrowserRouter([
     {
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
         loader: requireAuth,
         errorElement: <ErrorBoundary />,
         children: [
-            { index: true, element: <Home /> }, // ✅ route par défaut : / → Home
+            { index: true, element: <Home /> }, 
             { path: 'home', element: <Home /> },
             { path: 'category', element: <Category /> },
             { path: 'transactions', element: <Expenses /> },
