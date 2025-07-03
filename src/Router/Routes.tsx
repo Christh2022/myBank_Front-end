@@ -1,5 +1,5 @@
 // src/router.tsx
-import { createBrowserRouter} from 'react-router';
+import { createBrowserRouter, Navigate} from 'react-router';
 import { ErrorBoundary } from '../utils/ErrorBoundary';
 import Home from '../Pages/Home/Home';
 import Category from '../Pages/Category/Category';
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
         loader: requireAuth,
         errorElement: <ErrorBoundary />,
         children: [
-            { index: true, element: <Home /> }, 
+            { index: true, element: <Navigate to={"home"} /> }, 
             { path: 'home', element: <Home /> },
             { path: 'category', element: <Category /> },
             { path: 'transactions', element: <Expenses /> },

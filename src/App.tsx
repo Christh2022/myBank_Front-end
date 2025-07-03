@@ -45,12 +45,6 @@ function App() {
     <>
       {loading && !navVisible &&  <LoaderBoundary />}
       <RouterProvider router={router} />
-      {
-        navVisible &&
-        <>
-          <Nav/>
-        </>
-      }
     </>
   )
 }
