@@ -3,7 +3,6 @@ import router from "./Router/Routes";
 import { requireAuth } from "./utils/Auth";
 import { useEffect, useState } from "react";
 import "./App.css";
-import Nav from "./Components/Navigation/Nav";
 import { useDispatch, useSelector } from "react-redux";
 import { setNavVisible, visible } from "./Redux/Slices/navSlice";
 
