@@ -13,6 +13,7 @@ import { Register } from '../Pages/Register/Register';
 import AppLayout from '../Layout/AppLayout';
 import Profile from '../Pages/Profile/Profile';
 import { Header } from '../Components/Header/Header';
+import Nav from '../Components/Navigation/Nav';
 
 const router = createBrowserRouter([
     {
@@ -46,7 +47,11 @@ const router = createBrowserRouter([
     {
         path: '/nav',
         // element: <NotFound />,
-        element: <Header />,
+        element:
+            <div>
+                <Nav/>
+                <Header />
+            </div>
     },
   ]);
   

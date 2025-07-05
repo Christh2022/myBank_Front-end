@@ -104,9 +104,9 @@ export const DropDownMenu = ({ FaAngleDown }: { FaAngleDown: IconType }) => {
             {index === 4 && <hr className="w-[100%] border-[#ffffff32]" />}
           </MenuItem>
         ))}
-        <MenuItem>
-          <p className="text-[#ffffff4d] text-[14px] px-5 py-1.5">
-            Privacy Policy <span>.</span> Terms ofService
+        <MenuItem sx={{padding: "0 0"}}>
+          <p className="text-[#ffffff4d] text-[14px] px-5 py-1.5 font-semibold">
+            Privacy Policy <span className='text-[25px] px-1 py-0'>.</span> Terms ofService
           </p>
         </MenuItem>
       </Menu>

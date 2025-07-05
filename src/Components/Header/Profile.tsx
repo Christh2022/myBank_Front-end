@@ -20,7 +20,7 @@ export default function Profile({
 
   return (
     <div className="flex flex-row gap-[11px] items-center justify-center ">
-      {profileData && profileData.img.length < 0 ? (
+      {profileData && profileData.img.length > 0 ? (
         <Avatar
           alt={profileData.name}
           src={profileData.img}
@@ -37,7 +37,7 @@ export default function Profile({
           @{profileData.name.replace(' ', '_').toLocaleLowerCase()}
         </span>
       </div>
-      <span className="ml-3 cursor-pointer text-[20px] items-center justify-center">
+      <span className="hidden sm:flex ml-3 cursor-pointer text-[20px] items-center justify-center">
         <DropDownMenu {...{ FaAngleDown }} />
       </span>
     </div>

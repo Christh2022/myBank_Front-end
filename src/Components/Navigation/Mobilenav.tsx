@@ -22,12 +22,14 @@ export const Mobilenav = ({
   const [showNav, setShowNav] = useState<boolean>(false);
   return (
     <div className="fixed bottom-0 top-0 ">
-      <div className={`lg:hidden fixed z-[200] flex-row-reverse right-0 top-6  durationt-300 ease-in-out ${showNav ? "opacity-0 " : "opacity-100 delay-500" } `}>
+      <div
+        className={`lg:hidden fixed z-[200] flex-row-reverse right-2 top-6  durationt-300 ease-in-out ${showNav ? 'opacity-0 ' : 'opacity-100 delay-500'} `}
+      >
         <div className="text-white">
           <button
             onClick={() => setShowNav(true)}
             // style={{ boxShadow: '1px 0 5.5px 0 rgba(255,255,255,0.4)' }}
-            className=" cursor-pointer bg-none p-3 text-[19px] font-extrabold "
+            className=" cursor-pointer bg-none p-3 text-[19px] font-extrabold bg-[#ffffff17] w-[60px] h-[60px] rounded-full flex items-center justify-center "
           >
             <RiMenu3Fill />
           </button>
@@ -42,7 +44,7 @@ export const Mobilenav = ({
         }}
       >
         <div
-          className={`bg-[#FFFFFF0D] transition-all duration-300 ease-in-out w-[250px] h-full flex flex-col items-start pl-5 ${showNav ? "ml-0 " : "-ml-[253px] "}`}
+          className={`bg-[#FFFFFF0D] transition-all duration-300 ease-in-out w-[250px] h-full flex flex-col items-start pl-5 ${showNav ? 'ml-0 ' : '-ml-[253px] '}`}
           style={{ boxShadow: '0 0 4px 0 rgba(255,255,255,0.4)' }}
         >
           {/* logo */}
@@ -93,7 +95,7 @@ export const Mobilenav = ({
         <button
           onClick={() => setShowNav(false)}
           // style={{ boxShadow: '1px 0 5.5px 0 rgba(255,255,255,0.4)' }}
-          className={`absolute cursor-pointer transition-all delay-50 duration-300 ease-in-out bg-[#FFFFFF0D] p-3 top-6.5  text-[19px] font-extrabold ${!showNav ? "-left-6 " : "left-[252px]"} `}
+          className={`absolute cursor-pointer transition-all delay-50 duration-300 ease-in-out bg-[#FFFFFF0D] p-3 top-6.5  text-[19px] font-extrabold ${!showNav ? '-left-6 ' : 'left-[252px]'} `}
         >
           <MdClose />
         </button>

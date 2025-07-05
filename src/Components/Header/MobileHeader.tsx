@@ -15,7 +15,7 @@ export const MobileHeader = ({
           backdropFilter: 'blur(4px)',
           WebkitBackdropFilter: 'blur(4px)'
         }}
-        className="rounded-[100px] px-2 py-1 h-[60px] md:min-w-[253px] bg-[#ffffff17]"
+        className={`sm:rounded-[100px] px-2 py-1 h-[60px] md:min-w-[253px]  sm:bg-[#ffffff17]`}
       >
         <Profile {...{ profileData }} />
       </div>
