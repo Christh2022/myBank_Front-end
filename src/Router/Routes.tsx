@@ -12,7 +12,7 @@ import { registerAction } from '../Pages/Register/RegisterAction';
 import { Register } from '../Pages/Register/Register';
 import AppLayout from '../Layout/AppLayout';
 import Profile from '../Pages/Profile/Profile';
-import Nav from '../Components/Navigation/Nav';
+import { Header } from '../Components/Header/Header';
 
 const router = createBrowserRouter([
     {
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
     {
         path: '/nav',
         // element: <NotFound />,
-        element: <Nav />,
+        element: <Header />,
     },
   ]);
   
