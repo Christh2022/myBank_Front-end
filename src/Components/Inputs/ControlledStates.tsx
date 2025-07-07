@@ -31,6 +31,7 @@ const Listbox = styled('ul')`
   padding: 0;
   margin-top: 4px;
   max-height: 250px;
+  padding: 0 10px;
   overflow: auto;
   list-style: none;
   background-color: #1B1919;
@@ -84,7 +85,7 @@ export default function ControlledStates() {
           <Input
             {...getInputProps()}
             placeholder="Select a Category…"
-            className={`px-3 border border-[#ffffff9c] outline-0  ${SelectedIcon ? 'text-[#0000] w-[80%]' : 'w-[95%]'}`}
+            className={`px-3 border border-[#ffffff9c] outline-0  ${SelectedIcon ? 'text-[#0000] w-[90%]' : 'w-[95%]'}`}
           />
           <FaAngleDown size={20} className="cursor-pointer" />
         </AutocompleteRoot>

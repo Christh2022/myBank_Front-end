@@ -11,7 +11,7 @@ export default function PageWithLoader({ children }: PageWithLoaderProps) {
 
   return (
     <>
-      <div className="ml-30 absolute z-[999]">{navVisible && children}</div>
+      <div className="ml-30 absolute z-[1]">{navVisible && children}</div>
       {!navVisible && <LoaderBoundary />}
     </>
   );

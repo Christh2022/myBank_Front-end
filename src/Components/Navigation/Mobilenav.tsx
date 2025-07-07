@@ -23,7 +23,7 @@ export const Mobilenav = ({
   return (
     <div className="fixed bottom-0 top-0 ">
       <div
-        className={`lg:hidden fixed z-[200] flex-row-reverse right-2 top-6  durationt-300 ease-in-out ${showNav ? 'opacity-0 ' : 'opacity-100 delay-500'} `}
+        className={`lg:hidden fixed z-[200] flex-row-reverse right-2 top-8  durationt-300 ease-in-out ${showNav ? 'opacity-0 ' : 'opacity-100 delay-500'} `}
       >
         <div className="text-white">
           <button
