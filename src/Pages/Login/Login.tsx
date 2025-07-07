@@ -1,50 +1,47 @@
 // src/pages/Login.jsx
-import { Form, useActionData, useNavigation } from "react-router"; 
+import { Form, useActionData, useNavigation } from 'react-router';
 import { IoMdMail } from 'react-icons/io';
-import { MdOutlineLock } from "react-icons/md";
-import './Login.css'; 
-import { FcGoogle } from "react-icons/fc";
-import { AuthInfo } from "../../Components/Authentification/AuthInfo";
-import { useEffect, useState } from "react";
-import { LoaderBoundary } from "../../App";
-import { requireAuth } from "../../utils/Auth";
-import { useDispatch, useSelector } from "react-redux";
-import { setNavVisible, visible } from "../../Redux/Slices/navSlice";
+import { MdOutlineLock } from 'react-icons/md';
+import './Login.css';
+import { FcGoogle } from 'react-icons/fc';
+import { AuthInfo } from '../../Components/Authentification/AuthInfo';
+import { useEffect, useState } from 'react';
+import { LoaderBoundary } from '../../App';
+import { requireAuth } from '../../utils/Auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { setNavVisible, visible } from '../../Redux/Slices/navSlice';
 
 export function Login() {
   const error = useActionData();
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch()
-  const navVisible = useSelector(visible)
-  
+  const dispatch = useDispatch();
+  const navVisible = useSelector(visible);
 
   useEffect(() => {
     setLoading(true);
-    const path = (window.location.pathname);
-    
+    const path = window.location.pathname;
+
     requireAuth()
-      .then((res) => {
-        dispatch(setNavVisible(true))
-        console.log(res);
-        
+      .then(() => {
+        dispatch(setNavVisible(true));
       })
       .catch(() => {
         localStorage.removeItem('token');
       })
       .finally(() => {
-        if (!navVisible) { 
-          setLoading(false)
+        if (!navVisible) {
+          setLoading(false);
         }
         if (navVisible && path !== '/Login') {
-          setLoading(false)
+          setLoading(false);
         }
       });
-  }, [navigation.state, dispatch, navVisible])
+  }, [navigation.state, dispatch, navVisible]);
 
   return (
     <div className="w-full flex flex-col justify-center items-center">
-      {loading &&  <LoaderBoundary />}
+      {loading && <LoaderBoundary />}
       <div className="authentication">
         <div className="flex flex-row w-[100%] items-center justify-center overflow-hidden ">
           {/* Left Side - Auth Info */}
@@ -53,7 +50,10 @@ export function Login() {
           <div className="flex flex-col items-center justify-center gap-2.5 w-[50%]">
             <div className="w-sm[90%] flex flex-col items-center justify-center w-[438px] pl-15">
               {/* Form */}
-              <Form method="post" className="flex flex-col  gap-[35px] w-[430px]">
+              <Form
+                method="post"
+                className="flex flex-col  gap-[35px] w-[430px]"
+              >
                 {/* Header */}
                 <div className="flex flex-col gap-[5px] ">
                   <h1 className="text-[#FFFFFF] font-semibold text-[32px]">

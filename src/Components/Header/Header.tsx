@@ -1,15 +1,13 @@
-import React from 'react';
 import { MobileHeader } from './MobileHeader';
-import profile from '../../assets/profile.jpg';
 import { Icons } from './Icons';
 import Search from './Search';
+import { useSelector } from 'react-redux';
+import { user } from '../../Redux/Slices/userSlice';
+import type { User } from '../../utils/Types';
 export const Header = () => {
-  const profileData = {
-    img: profile,
-    name: 'Ethan Raynolds',
-  };
+  const profileData = useSelector(user) as User
   return (
-    <div className="flex flex-row fixed top-8 left-3 lg:left-[110px] right-5">
+    <div className="flex flex-row fixed top-8 left-6 lg:left-[110px] right-5">
       <div className='flex flex-1 xl:justify-between items-center w-[100%]'>
         <div>
           <Search/>

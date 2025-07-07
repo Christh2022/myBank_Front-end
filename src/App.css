@@ -8,13 +8,15 @@
   ::-webkit-scrollbar{
     width: 0px;
   }
-  ::-webkit-scrollbar-thumb{
-    background: transparent;
-  }
-  ::-webkit-scrollbar-track{
-    background: transparent;
-  }
 }
+
+*::-webkit-scrollbar-thumb{
+  background: transparent;
+}
+*::-webkit-scrollbar-track{
+  background: transparent;
+}
+
 
 a{
   text-decoration: none;
