@@ -12,6 +12,7 @@ import { registerAction } from '../Pages/Register/RegisterAction';
 import { Register } from '../Pages/Register/Register';
 import AppLayout from '../Layout/AppLayout';
 import Profile from '../Pages/Profile/Profile';
+import { TransactionDataGrid } from '../Components/Transactions/TransactionDataGrid';
 
 const router = createBrowserRouter([
   {
@@ -47,7 +48,7 @@ const router = createBrowserRouter([
     // element: <NotFound />,
     element: (
       <div>
-        
+        <TransactionDataGrid/>
       </div>
     ),
   },
