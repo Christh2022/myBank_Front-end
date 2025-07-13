@@ -32,3 +32,13 @@ export type Expenses = {
     label: string;
     category: Category
 }
+
+export type RowData = {
+    id: number;
+    date: string;
+    amount: string;
+    payement_name: string;
+    method: string;
+    category: string;
+    status: string;
+};
