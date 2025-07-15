@@ -67,7 +67,8 @@ export const TransactionDataGrid = ({
             '--DataGrid-t-color-foreground-base': '#fff',
             '--DataGrid-t-color-border-base': 'rgba(255, 255, 255, 0)',
             '--DataGrid-rowBorderColor': 'transparent',
-            minHeight: 650,
+            // minHeight: 650,
+            height: '100%',
             '& span': {
               color: `rgba(255, 158, 0, 1)`,
             },
@@ -151,7 +152,7 @@ export const TransactionDataGrid = ({
       />
       {add && (
         <div
-          className="absolute top-0 left-0 right-0 bottom-0 bg-[#ffffff1e]  flex items-center justify-center"
+          className="fixed top-0 left-0 right-0 bottom-0 bg-[#ffffff1e]  flex items-center justify-center z-[999]"
           style={{ backdropFilter: 'blur(4px)' }}
         >
           <AddTransaction {...{ addTransaction }} />

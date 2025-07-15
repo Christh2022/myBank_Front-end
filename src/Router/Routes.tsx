@@ -12,7 +12,8 @@ import { registerAction } from '../Pages/Register/RegisterAction';
 import { Register } from '../Pages/Register/Register';
 import AppLayout from '../Layout/AppLayout';
 import Profile from '../Pages/Profile/Profile';
-import { TransactionDataGrid } from '../Components/Transactions/TransactionDataGrid';
+import LeftProfilePart from '../Components/Profile/LeftProfilePart';
+import RightProfilePart from '../Components/Profile/RightProfilePart';
 
 const router = createBrowserRouter([
   {
@@ -47,8 +48,12 @@ const router = createBrowserRouter([
     path: '/nav',
     // element: <NotFound />,
     element: (
-      <div>
-        <TransactionDataGrid/>
+      <div className="flex items-center flex-1">
+        <div className=" flex flex-col md:flex-row  gap-4 flex-1">
+          <LeftProfilePart />
+          <RightProfilePart />
+
+        </div>
       </div>
     ),
   },

@@ -180,9 +180,10 @@ const rows = [
 export default function Expenses() {
 
     return (
-        <PageWithLoader>
-            
-            <TransactionDataGrid {...{ columns, rows }} />
-        </PageWithLoader>
-    )
+      <PageWithLoader>
+        <div className="flex flex-wrap lg:flex-nowrap justify-between fixed top-28 left-6 lg:left-[110px] right-5 bottom-8 gap-6 overflow-y-scroll">
+          <TransactionDataGrid {...{ columns, rows }} />
+        </div>
+      </PageWithLoader>
+    );
 }
