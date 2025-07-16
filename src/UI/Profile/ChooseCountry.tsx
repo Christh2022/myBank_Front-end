@@ -1,9 +1,10 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import { FaCaretDown } from 'react-icons/fa';
 
 export default function CountrySelect() {
+  const [open, setOpen] = React.useState<boolean>(false);
   return (
     <Autocomplete
       id="country-select-demo"
@@ -31,13 +32,16 @@ export default function CountrySelect() {
           outline: 'none',
         },
 
+        '& ul': {
+          bgColor: 'red',
+        },
+
         '& .MuiInputBase-root.Mui-focused': {
           // borderColor: '#fca311',
         },
-        
+
         '& .Mui-expanded': {
           borderColor: '#fca311',
-          
         },
 
         '& .MuiButtonBase-root': {
@@ -45,6 +49,9 @@ export default function CountrySelect() {
         },
       }}
       options={countries}
+      open={open}
+      onOpen={() => setOpen(true)}
+      onClose={() => setOpen(false)}
       autoHighlight
       getOptionLabel={(option) => option.label}
       renderOption={(props, option) => {
@@ -55,8 +62,10 @@ export default function CountrySelect() {
             component="li"
             sx={{
               color: '#fff',
-              bgColor: '#000',
+              // bgColor: '#000',
+              borderRadius: 0,
               '& > img': { mr: 2, flexShrink: 0 },
+              '&:hover': { color: '#fca311' },
             }}
             {...optionProps}
           >
@@ -71,20 +80,23 @@ export default function CountrySelect() {
           </Box>
         );
       }}
-      renderInput={(params) => {
-        return (
-          <TextField
-            {...params}
-            placeholder="Choose the country"
-            slotProps={{
-              htmlInput: {
-                ...params.inputProps,
-                autoComplete: 'new-password', // disable autocomplete and autofill
-              },
-            }}
+      renderInput={(params) => (
+        <div ref={params.InputProps.ref} className=" relative ">
+          <input
+            type="text"
+            placeholder="Choose your country"
+            onClick={() => setOpen(!open)}
+            {...params.inputProps}
+            // value={selectedCountry ? selectedCountry.label : ''}
+            className=" bg-transparent border border-[rgba(255,255,255,0.2)] font-medium  w-[100%] py-2 pl-3 pr-8 outline-0 text-white focus:outline-0 focus:ring-1 focus:ring-[#fca311] focus:border-[#fca311] rounded-[18px]"
           />
-        );
-      }}
+          
+          <FaCaretDown
+            className={`absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer ${open ? 'rotate-180' : ''}`}
+            onClick={() => setOpen(!open)}
+          />
+        </div>
+      )}
     />
   );
 }

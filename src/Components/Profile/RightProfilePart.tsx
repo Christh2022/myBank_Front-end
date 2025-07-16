@@ -5,16 +5,30 @@ import profile from '../../assets/profile.jpg';
 import { IoIosCamera } from 'react-icons/io';
 import CountrySelect from '../../UI/Profile/ChooseCountry';
 
-const StyledBadge = styled(Badge)(() => ({
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
     backgroundColor: '#1B1919',
     color: '#1B1919',
-    width: 30,
-    height: 30,
     borderRadius: '50%',
     cursor: 'pointer',
+
+    // Valeur par défaut
+    width: 20,
+    height: 20,
+
+    // Responsive via breakpoints
+    [theme.breakpoints.up('sm')]: {
+      width: 25,
+      height: 25,
+    },
+    [theme.breakpoints.up('md')]: {
+      width: 30,
+      height: 30,
+    },
   },
 }));
+
 
 export default function RightProfilePart() {
   const [image, setImage] = React.useState<string | null>(null);
@@ -51,8 +65,9 @@ export default function RightProfilePart() {
         <StyledBadge
           overlap="circular"
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          sx={{}}
           badgeContent={
-            <span className="text-[25px] text-white">
+            <span className="text-[13px] sm:text-[17px] md:text-[25px] text-white">
               <IoIosCamera />
             </span>
           }
@@ -147,9 +162,13 @@ export default function RightProfilePart() {
             Zip Code
           </label>
           <input
-            type="text"
+            type="number"
             className="bg-transparent border border-[rgba(255,255,255,0.2)] font-medium  py-2 px-3 outline-0 text-white focus:outline-0 focus:ring-1 focus:ring-[#fca311] focus:border-[#fca311] rounded-[18px]"
             placeholder="Enter your zip code"
+            maxLength={5}
+            minLength={5}
+            pattern="\d{5}"
+            title="Please enter a valid 5-digit zip code"
           />
         </div>
         <div className="flex flex-col">
