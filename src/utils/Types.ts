@@ -2,11 +2,14 @@ import type { IconType } from "react-icons";
 
 export type User = {
     id: number;
-    nom: string;
-    prenom: string;
+    lastName: string;
+    firstName: string;
     email: string;
-    addresse: string;
-    telephone: string;
+    address: string;
+    city: string;
+    country: string;
+    zip: string;
+    phone: string;
     role: string;
     profile?: string
     expenses?: Expenses[]

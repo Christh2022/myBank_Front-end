@@ -45,15 +45,15 @@ export default function LeftProfilePart() {
     setValue(newValue);
   };
   return (
-    <div className=" flex-4/12">
-      <h2 className=" text-[18px] font-bold text-white ">
-        User Profile <br />
-        management
+    <div className="hidden md:flex sm:flex-col sm:flex-3/12 px-2 lg:pr-3 lg:pl-3 xl:pl-6  md:border-r md:border-[rgba(255,255,255,0.2)] overflow-hidden">
+      <h2 className=" text-[18px] font-bold text-white flex md:flex-col flex-row ">
+        <span>User Profile</span>
+        <span>management</span>
       </h2>
       <div
         className={
-          'mt-4 w-[calc(100%-32px)]' +
-          (isMobile ? ' border-b border-[rgba(255,255,255,0.2)]' : ' ')
+          'mt-4 w-[100%)] ' +
+          (isMobile ? 'border-b border-[rgba(255,255,255,0.2)] overflow-scroll' : ' ')
         }
       >
         <Tabs
@@ -79,7 +79,7 @@ export default function LeftProfilePart() {
             label={
               <div className="flex flex-row gap-[23px] items-center cursor-pointer w-full">
                 <FaUser className="text-white" />
-                <span className="text-[15px] font-medium text-white ">
+                <span className="text-[12px] font-medium text-white md:text-[14px] xl:text-[17px] text-left">
                   Personal info
                 </span>
               </div>
@@ -103,8 +103,8 @@ export default function LeftProfilePart() {
           <Tab
             label={
               <div className="flex flex-row gap-[23px] items-center  cursor-pointer w-full">
-                <RiShieldUserLine className="text-white" />
-                <span className="text-[15px] font-medium text-white ">
+                <RiShieldUserLine className="text-white text-[15px] md:text-[16px] lg:text-[17px]" />
+                <span className="text-[12px] font-medium text-white md:text-[14px] xl:text-[17px] text-left">
                   Emails & password
                 </span>
               </div>
@@ -129,7 +129,7 @@ export default function LeftProfilePart() {
             label={
               <div className="flex flex-row gap-[23px] items-center  cursor-pointer w-full">
                 <BiSolidNotification className="text-white" />
-                <span className="text-[15px] font-medium text-white ">
+                <span className="text-[12px] font-medium text-white md:text-[14px] xl:text-[17px] text-left ">
                   Notifications
                 </span>
               </div>
@@ -152,7 +152,6 @@ export default function LeftProfilePart() {
           />
         </Tabs>
       </div>
-      
     </div>
   );
 }

@@ -10,6 +10,8 @@ import { LoaderBoundary } from '../../App';
 import { requireAuth } from '../../utils/Auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNavVisible, visible } from '../../Redux/Slices/navSlice';
+import { getUser } from '../../Redux/Slices/userSlice';
+import type { User } from '../../utils/Types';
 
 export function Login() {
   const error = useActionData();
@@ -23,8 +25,14 @@ export function Login() {
     const path = window.location.pathname;
 
     requireAuth()
-      .then(() => {
-        dispatch(setNavVisible(true));
+      .then((res) => {
+        if (res && typeof res === 'object') {
+          const newRes = res as User;
+          delete newRes.expenses;
+          dispatch(getUser(newRes));
+          
+          dispatch(setNavVisible(true));
+        }
       })
       .catch(() => {
         localStorage.removeItem('token');

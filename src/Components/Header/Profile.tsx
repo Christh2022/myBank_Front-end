@@ -21,21 +21,24 @@ export default function Profile({ profileData }: { profileData: User }) {
     <div className="flex flex-row gap-[11px] items-center justify-center ">
       {profileData && profileData.profile && profileData.profile?.length > 0 ? (
         <Avatar
-          alt={profileData.nom}
+          alt={profileData.firstName + ' ' + profileData.lastName}
           src={profileData.profile}
           sx={{ width: 50, height: 50 }}
         />
       ) : (
-        <Avatar {...stringAvatar(profileData.nom +  " " +profileData.prenom)} />
+        <Avatar
+          {...stringAvatar(profileData.lastName + ' ' + profileData.firstName)}
+        />
       )}
       <div className="flex flex-col gap-0 ">
         <h6 className="font-semibold text-[15px] text-[#ffffff]">
-          {profileData.nom + profileData.prenom}
+          {(profileData.lastName + ' ' + profileData.firstName).slice(0, 15)}
         </h6>
         <span className="font-semibold text-[15px] text-[#FFFFFF80]">
           @
-          {(profileData.nom + profileData.prenom)
-            .replace(' ', '_')
+          {(profileData.lastName + ' ' + profileData.firstName)
+            .slice(0, 15)
+            .replace(/\s+/g, '_')
             .toLocaleLowerCase()}
         </span>
       </div>

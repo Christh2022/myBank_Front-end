@@ -39,8 +39,10 @@ function App() {
           // console.log(res);
           if (res && typeof res === 'object' ) {
             const newRes = res as User
+            console.log(newRes);
+            
             delete newRes.expenses;
-            dispatch(getUser(res));
+            dispatch(getUser(newRes));
             dispatch(setNavVisible(true));
           }
         })
