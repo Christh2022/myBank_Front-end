@@ -152,7 +152,7 @@ export const TransactionDataGrid = ({
       />
       {add && (
         <div
-          className="fixed top-0 left-0 right-0 bottom-0 bg-[#ffffff1e]  flex items-center justify-center z-[999]"
+          className="fixed top-0 left-0 right-0 bottom-0 bg-[#ffffff1e]  flex items-center justify-center z-[265]"
           style={{ backdropFilter: 'blur(4px)' }}
         >
           <AddTransaction {...{ addTransaction }} />

@@ -6,7 +6,7 @@ import {
   FaLaptopCode
 } from 'react-icons/fa';
 
-export const transactionCategories = [
+export const transactionCategoriesIcon = [
   { key: 'food', icon: FaUtensils, label: 'Alimentation / Restaurants' },
   { key: 'groceries', icon: FaShoppingBasket, label: 'Courses / Supermarché' },
   { key: 'transport', icon: FaBus, label: 'Transport' },

@@ -181,7 +181,7 @@ export default function Expenses() {
 
     return (
       <PageWithLoader>
-        <div className="flex flex-wrap lg:flex-nowrap justify-between fixed top-28 left-6 lg:left-[110px] right-5 bottom-8 gap-6 overflow-y-scroll">
+        <div className="flex flex-wrap lg:flex-nowrap justify-between fixed top-28 left-6 lg:left-[110px] right-5 bottom-8 gap-6 overflow-y-scroll z-[260] ">
           <TransactionDataGrid {...{ columns, rows }} />
         </div>
       </PageWithLoader>

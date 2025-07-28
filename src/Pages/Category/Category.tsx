@@ -4,8 +4,73 @@ import PageWithLoader from '../../Components/PageWithLoader/PageWithLoader';
 import { CategorieItem } from '../../UI/Categorie/caregorieItem';
 import CustomIcon from '../../UI/Icon/CustomIcon';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+import { useLoaderData } from 'react-router';
+import { PiMaskSadFill } from 'react-icons/pi';
+import React from 'react';
+import type { User } from '../../utils/Types';
+import { user } from '../../Redux/Slices/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCategory } from '../../Api/CategoryController';
+import { categories, setCategory } from '../../Redux/Slices/categorySlice';
 
 export default function Category() {
+  // const inputRef = React.useRef<HTMLInputElement>(null);
+  const formRef = React.useRef<HTMLFormElement>(null);
+  const dispatch = useDispatch()
+  const category = useSelector(categories)
+  const [icon, setIcon] = React.useState<string>('');
+  const profileData = useSelector(user) as User;
+  const { data, pagination } = useLoaderData() as {
+    data: { id: number; title: string; icon_name: string }[];
+    pagination: {
+      current_page: number;
+      total_pages: number;
+      total_items: number;
+      items_per_page: number;
+    };
+  };
+
+  
+  const handleClick = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!formRef.current) return;
+
+    const formData = new FormData(formRef.current);
+    const item: Record<string, string> = {};
+
+    formData.forEach((value, key) => {
+      item[key] = value.toString().trim();
+    });
+
+    if (icon) {
+      item['icon_name'] = icon;
+    }
+      console.log(item);
+
+    const res = await addCategory(
+      profileData.id,
+      item.icon_name,
+      item.title,
+      item.description
+    );
+
+    
+
+    if (category) {
+      dispatch(setCategory([...category, res]));
+    } else {
+      dispatch(setCategory([res]));
+    }
+    
+    // Réinitialise tous les champs du formulaire
+    formRef.current.reset();
+    console.log(category);
+  };
+
+
+
+  
+
   return (
     <PageWithLoader>
       <div className="flex flex-wrap lg:flex-nowrap justify-between fixed top-28 left-6 lg:left-[110px] right-5 bottom-8 gap-6 overflow-y-scroll">
@@ -28,35 +93,30 @@ export default function Category() {
             </div>
           </div>
           <div className="grid sm:grid-cols-2 xl:grid-cols-3  gap-4 py-4 px-6 mb-5.5">
-            <CategorieItem
-              category={{
-                id: 1,
-                title: 'Dev Service',
-                icon_name: 'FaLaptopCode',
-              }}
-            />
-            <CategorieItem
-              category={{
-                id: 1,
-                title: 'Dev Service',
-                icon_name: 'FaLaptopCode',
-              }}
-            />
-            <CategorieItem
-              category={{
-                id: 1,
-                title: 'Dev Service',
-                icon_name: 'FaLaptopCode',
-              }}
-            />
-            <CategorieItem
-              category={{
-                id: 1,
-                title: 'Dev Service',
-                icon_name: 'FaLaptopCode',
-              }}
-            />
+            {data.length > 0 &&
+              [...(Array.isArray(category) ? category : []), ...data].map(
+                ({
+                  id,
+                  title,
+                  icon_name,
+                }: {
+                  id: number;
+                  title: string;
+                  icon_name: string;
+                }) => (
+                  <CategorieItem key={id} category={{ id, title, icon_name }} id={profileData.id} />
+                )
+              )}
           </div>
+
+          {data.length === 0 && (
+            <div className="flex flex-1 py-10 flex-col gap-2.5 items-center justify-center w-full">
+              <PiMaskSadFill className=" text-xl sm:text-3xl md:text-6xl text-[rgba(255,255,255,0.2)] " />
+              <span className="font-semibold text-1xl text-[rgba(255,255,255,0.2)]">
+                No Category Found
+              </span>
+            </div>
+          )}
 
           <div className=" lg:absolute bottom-3 flex items-center justify-between px-6 py-2.5 w-[100%] ">
             <div className="flex flex-row gap-2.5 ">
@@ -69,7 +129,12 @@ export default function Category() {
             </div>
 
             <p className=" text-[rgba(255,255,255,0.7)] text-[15px] font-medium ">
-              Showing 1 of 1 results
+              Showing{' '}
+              {(pagination.total_items > 0 ? pagination.current_page : 0) +
+                ' of ' +
+                (pagination.total_items > 0 ? pagination.total_pages : 0) +
+                ' result' +
+                (pagination.total_pages > 1 ? 's' : '')}
             </p>
           </div>
         </div>
@@ -77,17 +142,18 @@ export default function Category() {
           <h3 className="text-[21px] font-bold">Add Category</h3>
           <form
             method="post"
-            onSubmit={() => {}}
+            onSubmit={handleClick}
+            ref={formRef}
             className="flex flex-col gap-[20px]"
           >
             <div className="flex flex-col gap-[17px]">
-              <label htmlFor="name" className="font-semibold text-[16px]">
+              <label htmlFor="title" className="font-semibold text-[16px]">
                 Name<span className="text-[#FCA113]">*</span>
               </label>
               <input
                 type="text"
                 placeholder="Enter Category's Name"
-                name="name"
+                name="title"
                 className="px-3 border font-semibold border-[#FFFFFF97] outline-0 focus:border-[#fca311] h-[50px] rounded-[3px] "
               />
             </div>
@@ -95,14 +161,18 @@ export default function Category() {
               <label htmlFor="icon" className="font-semibold text-[16px]">
                 Icon<span className="text-[#FCA113]">*</span>
               </label>
-              <ControlledStates />
+              <ControlledStates {...{ setIcon }} />
             </div>
             <div className="flex flex-col gap-[17px]">
-              <label htmlFor="name" className="font-semibold text-[16px]">
+              <label
+                htmlFor="description"
+                className="font-semibold text-[16px]"
+              >
                 Description (optional)
               </label>
               <textarea
                 placeholder="Add a description"
+                name="description"
                 className="text-[#FFFFFF97] font-semibold px-3 border border-[#FFFFFF97] pt-2  h-[152px] rounded-[3px] resize-none outline-0 focus:border-[#fca311]  "
               />
             </div>

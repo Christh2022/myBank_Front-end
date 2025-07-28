@@ -7,7 +7,7 @@ import type { User } from '../../utils/Types';
 export const Header = () => {
   const profileData = useSelector(user) as User
   return (
-    <div className="flex flex-row fixed top-8 left-6 lg:left-[110px] right-5">
+    <div className="flex flex-row fixed top-8 left-6 lg:left-[110px] right-5 z-[250]">
       <div className='flex flex-1 xl:justify-between items-center w-[100%]'>
         <div>
           <Search/>

@@ -14,6 +14,9 @@ import AppLayout from '../Layout/AppLayout';
 import Profile from '../Pages/Profile/Profile';
 import LeftProfilePart from '../Components/Profile/LeftProfilePart';
 import RightProfilePart from '../Components/Profile/RightProfilePart';
+import { categoryAction } from '../Pages/Category/categoryAction';
+import { categoryLoader } from '../Pages/Category/categoryLoader';
+import { expenseLoader } from '../Pages/Expenses/expenseLoader';
 
 const router = createBrowserRouter([
   {
@@ -24,8 +27,8 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Navigate to={'home'} /> },
       { path: 'home', element: <Home /> },
-      { path: 'category', element: <Category /> },
-      { path: 'transactions', element: <Expenses /> },
+      { path: 'category/:id', element: <Category />, loader: categoryLoader, action: categoryAction  },
+      { path: 'transactions', element: <Expenses />, loader: expenseLoader, },
       { path: 'transactions/:category', element: <Expenses /> },
       { path: 'profile', element: <Profile /> },
     ],

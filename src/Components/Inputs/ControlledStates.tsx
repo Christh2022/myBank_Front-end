@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { styled } from '@mui/system';
 import { useAutocomplete } from '@mui/material';
-import { transactionCategories } from '../../utils/IconCategory';
+import { transactionCategoriesIcon } from '../../utils/IconCategory';
 import { FaAngleDown } from 'react-icons/fa6';
 
 const AutocompleteWrapper = styled('div')`
@@ -48,11 +48,14 @@ const Option = styled('li')`
 `;
 const Layout = styled('div')``;
 
-export default function ControlledStates() {
+export default function ControlledStates({
+  setIcon,
+}: {
+  setIcon: (icon: string) => void;
+}) {
   const [value, setValue] = React.useState<
-    (typeof transactionCategories)[0] | null
-  >(transactionCategories[0]);
-  const [inputValue, setInputValue] = React.useState('');
+    (typeof transactionCategoriesIcon)[5] | null
+  >(transactionCategoriesIcon[5]);
 
   const {
     getRootProps,
@@ -63,12 +66,17 @@ export default function ControlledStates() {
     focused,
   } = useAutocomplete({
     id: 'transaction-categories-autocomplete',
-    options: transactionCategories,
+    options: transactionCategoriesIcon,
     getOptionLabel: (option) => option.label,
     value,
-    onChange: (event, newValue) => setValue(newValue),
-    inputValue,
-    onInputChange: (event, newInputValue) => setInputValue(newInputValue),
+    onChange: (event, newValue) => {
+      setValue(newValue);
+      if (newValue) {
+        setIcon(newValue.label); // ou .label selon ce que tu veux transmettre
+      }
+    },
+    // icon,
+    // onInputChange: (event, newInputValue) => setIcon(newInputValue),
   });
 
   const SelectedIcon = value?.icon;
@@ -92,7 +100,7 @@ export default function ControlledStates() {
 
         {groupedOptions.length > 0 && (
           <Listbox {...getListboxProps()}>
-            {(groupedOptions as typeof transactionCategories)
+            {(groupedOptions as typeof transactionCategoriesIcon)
               .reverse()
               .map((option, index) => {
                 const Icon = option.icon;
@@ -102,7 +110,7 @@ export default function ControlledStates() {
                     key={option.key}
                   >
                     <Icon size={25} />
-                    {/* <span>{option.label}</span> */}
+                    <span>{option.label}</span>
                   </Option>
                 );
               })}

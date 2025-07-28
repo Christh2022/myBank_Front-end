@@ -94,15 +94,20 @@ export default function CountrySelect({
           <input
             type="text"
             placeholder={profileData?.country || 'Choose your country'}
-            onClick={() =>{if(!loading) setOpen(!open)}}
+            onClick={() => {
+              if (!loading) setOpen(!open);
+            }}
             {...params.inputProps}
             // value={selectedCountry ? selectedCountry.label : ''}
+            disabled={loading}
             className=" bg-transparent border border-[rgba(255,255,255,0.2)] font-medium  w-[100%] py-2 pl-3 pr-8 outline-0 text-white focus:outline-0 focus:ring-1 focus:ring-[#fca311] focus:border-[#fca311] rounded-[18px]"
           />
 
           <FaCaretDown
             className={`absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer ${open ? 'rotate-180' : ''}`}
-            onClick={() => {if(!loading) setOpen(!open)}}
+            onClick={() => {
+              if (!loading) setOpen(!open);
+            }}
           />
         </div>
       )}

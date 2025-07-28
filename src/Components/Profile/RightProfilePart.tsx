@@ -9,7 +9,6 @@ import type { User } from '../../utils/Types';
 import { getUser, user } from '../../Redux/Slices/userSlice';
 import { UpdateUser } from '../../Api/UserController';
 
-
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
     backgroundColor: '#1B1919',
@@ -33,15 +32,14 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-
 export default function RightProfilePart() {
   const [image, setImage] = React.useState<string | null>(null);
   const inputRef = React.useRef<HTMLInputElement>(null);
-  const profileData = useSelector(user) as User
+  const profileData = useSelector(user) as User;
   const [country, setCountry] = React.useState(profileData.country || '');
-   const formRef = React.useRef<HTMLFormElement>(null);
-  const dispatch = useDispatch()
-  const [loading, setLoading] = React.useState<boolean>(false)
+  const formRef = React.useRef<HTMLFormElement>(null);
+  const dispatch = useDispatch();
+  const [loading, setLoading] = React.useState<boolean>(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -57,7 +55,7 @@ export default function RightProfilePart() {
 
   const handleClick = async () => {
     if (!formRef.current) return;
-    setLoading(true)
+    setLoading(true);
 
     const formData = new FormData(formRef.current);
     const updates: Record<string, string> = {};
@@ -91,12 +89,14 @@ export default function RightProfilePart() {
       const newRes = res as User;
       console.log('good', newRes);
       dispatch(getUser(newRes));
-      setLoading(false)
+
+      // Réinitialise tous les champs du formulaire
+      formRef.current.reset();
+      setCountry('');
+      
+      setLoading(false);
     }
-
-    console.log('Champs modifiés :', res);
   };
-
 
   return (
     <div className="flex-1 sm:flex-9/12  md:pl-2 lg:pl-6 overflow-hidden ">

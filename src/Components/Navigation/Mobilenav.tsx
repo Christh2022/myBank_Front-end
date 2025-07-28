@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import { RiMenu3Fill } from 'react-icons/ri';
 import { NavLink } from 'react-router';
+import { setNavigate } from '../../Redux/Slices/navSlice';
+import { useDispatch } from 'react-redux';
+import { setCategory } from '../../Redux/Slices/categorySlice';
 
 type tabProps = {
   path: string;
@@ -20,8 +23,9 @@ export const Mobilenav = ({
   logo,
 }: MobilenavProps) => {
   const [showNav, setShowNav] = useState<boolean>(false);
+  const dispatch = useDispatch()
   return (
-    <div className="fixed bottom-0 top-0 ">
+    <div className="fixed bottom-0 top-0 z-[270] ">
       <div
         className={`lg:hidden fixed z-[200] flex-row-reverse right-2 top-8  durationt-300 ease-in-out ${showNav ? 'opacity-0 ' : 'opacity-100 delay-500'} `}
       >
@@ -57,6 +61,11 @@ export const Mobilenav = ({
             {navigationTab.map((nav, index) => (
               <NavLink
                 to={nav.path}
+                onClick={() => {
+                  dispatch(setCategory([]))
+                  dispatch(setNavigate(true));
+                  setShowNav(false);
+                }}
                 key={index}
                 className={({ isActive }) =>
                   `flex items-center pl-2 py-2 gap-4 ${isActive ? 'white bg-[#FCA311] rounded-[10px] w-[200px]' : 'text-[#FFFFFFB3]'}`
@@ -64,9 +73,11 @@ export const Mobilenav = ({
               >
                 {nav.Icon}
                 <span className="font-semibold text-[19px] capitalize">
-                  {nav.path.slice(1) === 'nav'
+                  {nav.path.slice(1) === 'home'
                     ? 'Dashboard'
-                    : nav.path.slice(1)}
+                    : nav.path.slice(1).includes('category')
+                      ? 'category'
+                      : nav.path.slice(1)}
                 </span>
               </NavLink>
             ))}
@@ -77,15 +88,17 @@ export const Mobilenav = ({
               <NavLink
                 to={nav.path}
                 key={index}
+                onClick={() => {
+                  dispatch(setNavigate(true));
+                  setShowNav(false);
+                }}
                 className={({ isActive }) =>
                   `flex items-center pl-2 py-2 gap-4  ${isActive ? 'white bg-[#FCA311] rounded-[10px]  ' : 'text-[#FFFFFFB3]'}`
                 }
               >
                 {nav.Icon}
                 <span className="font-semibold text-[19px] capitalize">
-                  {nav.path.slice(1) === 'nav'
-                    ? 'Dashboard'
-                    : nav.path.slice(1)}
+                  {nav.path.slice(1)}
                 </span>
               </NavLink>
             ))}

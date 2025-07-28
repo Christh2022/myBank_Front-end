@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import navReducer from './Slices/navSlice'
 import userReducer from './Slices/userSlice'
+import categorySlice from './Slices/categorySlice';
 
 const store = configureStore({
     reducer: {
         nav: navReducer,
-        user: userReducer
+        user: userReducer,
+        category: categorySlice
     },
 });
 
