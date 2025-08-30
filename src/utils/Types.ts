@@ -25,6 +25,7 @@ export type Category = {
     id: number;
     title: string;
     icon_name: string;
+    showCategory: boolean;
     description?: string | null
 }
 

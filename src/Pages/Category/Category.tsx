@@ -16,12 +16,17 @@ import { categories, setCategory } from '../../Redux/Slices/categorySlice';
 export default function Category() {
   // const inputRef = React.useRef<HTMLInputElement>(null);
   const formRef = React.useRef<HTMLFormElement>(null);
-  const dispatch = useDispatch()
-  const category = useSelector(categories)
+  const dispatch = useDispatch();
+  const category = useSelector(categories);
   const [icon, setIcon] = React.useState<string>('');
   const profileData = useSelector(user) as User;
   const { data, pagination } = useLoaderData() as {
-    data: { id: number; title: string; icon_name: string }[];
+    data: {
+      id: number;
+      title: string;
+      icon_name: string;
+      showCategory: boolean;
+    }[];
     pagination: {
       current_page: number;
       total_pages: number;
@@ -30,7 +35,6 @@ export default function Category() {
     };
   };
 
-  
   const handleClick = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!formRef.current) return;
@@ -45,31 +49,29 @@ export default function Category() {
     if (icon) {
       item['icon_name'] = icon;
     }
-      console.log(item);
+    console.log(item.icon_name);
 
-    const res = await addCategory(
-      profileData.id,
-      item.icon_name,
-      item.title,
-      item.description
-    );
-
-    
+    const res = await addCategory(item.icon_name, item.title, item.description);
 
     if (category) {
       dispatch(setCategory([...category, res]));
     } else {
       dispatch(setCategory([res]));
     }
-    
+
     // Réinitialise tous les champs du formulaire
     formRef.current.reset();
     console.log(category);
   };
 
+  React.useEffect(() => {
+    dispatch(setCategory(data));
+  }, [data, dispatch]);
 
-
-  
+  const merged = (Array.isArray(category) ? category : []);
+  const unique = merged.filter(
+    (item, index, self) => index === self.findIndex((t) => t.id === item.id)
+  );
 
   return (
     <PageWithLoader>
@@ -94,19 +96,27 @@ export default function Category() {
           </div>
           <div className="grid sm:grid-cols-2 xl:grid-cols-3  gap-4 py-4 px-6 mb-5.5">
             {data.length > 0 &&
-              [...(Array.isArray(category) ? category : []), ...data].map(
-                ({
-                  id,
-                  title,
-                  icon_name,
-                }: {
-                  id: number;
-                  title: string;
-                  icon_name: string;
-                }) => (
-                  <CategorieItem key={id} category={{ id, title, icon_name }} id={profileData.id} />
-                )
-              )}
+              profileData &&
+              unique
+                .filter((item) => item.showCategory)
+                .map(
+                  ({
+                    id,
+                    title,
+                    icon_name,
+                    showCategory,
+                  }: {
+                    id: number;
+                    title: string;
+                    icon_name: string;
+                    showCategory: boolean;
+                  }) => (
+                    <CategorieItem
+                      key={id}
+                      category={{ id, title, icon_name, showCategory }}
+                    />
+                  )
+                )}
           </div>
 
           {data.length === 0 && (

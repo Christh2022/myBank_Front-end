@@ -5,22 +5,26 @@ import { FaEdit } from 'react-icons/fa';
 import { transactionCategoriesIcon } from '../../utils/IconCategory';
 import { deleteCategory, updateCategory } from '../../Api/CategoryController';
 import SeeCategoryDetail from './SeeCategoryDetail';
+import { useDispatch, useSelector } from 'react-redux';
+import { categories, setCategory } from '../../Redux/Slices/categorySlice';
 
 export const CategorieItem = ({
   category,
-  id,
 }: {
   category: Category;
-  id: number;
 }) => {
   const [icon, setIcon] = React.useState<string>('');
   const [edit, setEdit] = React.useState<boolean>(false);
   const formRef = React.useRef<HTMLFormElement>(null);
+  const dispatch = useDispatch();
+  const categoryTab = useSelector(categories);
 
-  const data = transactionCategoriesIcon.filter(
-    (item) => item.label === category.icon_name
-  );
-  const Icon = data[0].icon;
+ const matched = transactionCategoriesIcon.find(
+   (item) =>  (category.icon_name  === item.label)
+ );
+
+
+  const Icon = matched ? matched.icon : null;
 
   const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -44,24 +48,35 @@ export const CategorieItem = ({
         icon_name: item.icon_name,
         description: item.description,
       },
-      id
+      category.id
     );
 
     // Réinitialise tous les champs du formulaire
     formRef.current.reset();
-
+    if (categoryTab) {
+      const newTab = categoryTab.filter((item) => item.id !== category.id);
+      dispatch(setCategory([res, ...newTab]));
+    }
+    setEdit(false);
     console.log(res);
   };
 
   const handleDelete = async () => {
-    const res = await deleteCategory(id);
-    console.log(res);
+    console.log(category.showCategory);
+    
+    if (category.showCategory && categoryTab) {
+      const res = await deleteCategory(category.id);
+      const newTab = categoryTab.filter((item) => item.id !== category.id);
+      dispatch(setCategory(newTab));
+      console.log(res);
+      console.log(category.showCategory);
+    }
   };
   return (
     <>
       <div className=" flex flex-row items-center justify-start px-3.5 h-[80px] gap-3.5 bg-[rgba(255,255,255,0.1)] rounded-[6px]  ">
         <span className=" w-[65px] h-[65px] bg-[rgba(252,163,17,0.28)] flex justify-center rounded-full text-[30px] items-center ">
-          <Icon className="" />
+          {Icon ? <Icon /> : '❓'}
         </span>
         <div className=" flex flex-col gap-1 ">
           <h6 className="font-medium text-[15px]">
